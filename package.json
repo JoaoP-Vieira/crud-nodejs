@@ -4,9 +4,11 @@
   "description": "Just a small form using NodeJS for study",
   "main": "index.js",
   "scripts": {
-    "build": "tsc",
+    "build-server": "tsc -p server-tsconfig.json",
+    "build-client": "tsc -p client-tsconfig.json",
     "dev": "nodemon",
-    "start": "npm run build && node dist/src/index.js",
+    "start-server": "npm run build-server && node ./dist/server/app.js",
+    "start-client": "npm run build-client && node ./dist/client/app.js",
     "test": "npm run build && node dist/test/test.js"
   },
   "repository": {
@@ -22,7 +24,6 @@
   "homepage": "https://github.com/JoaoP-Vieira/crud-nodejs#readme",
   "devDependencies": {
     "@types/node": "^17.0.18",
-    "nodemon": "^2.0.15",
     "typescript": "^4.5.5"
   }
 }
