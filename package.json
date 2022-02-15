@@ -4,11 +4,9 @@
   "description": "Just a small form using NodeJS for study",
   "main": "index.js",
   "scripts": {
-    "build-server": "tsc -p server-tsconfig.json",
-    "build-client": "tsc -p client-tsconfig.json",
+    "build": "tsc",
     "dev": "nodemon",
-    "start-server": "npm run build-server && node ./dist/server/app.js",
-    "start-client": "npm run build-client && node ./dist/client/app.js",
+    "start": "npm run build && node ./dist/app.js",
     "test": "npm run build && node dist/test/test.js"
   },
   "repository": {
