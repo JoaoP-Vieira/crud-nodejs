@@ -4,16 +4,19 @@ import 'bootstrap/dist/css/bootstrap.css';
 import {
   Container,
   FormGroup,
-  Form,
   FormControl,
   Button,
   Table,
 } from 'react-bootstrap';
 
 function App() {
+  const [id, setId] = useState('');
+  const [name, setName] = useState('');
+  const [type, setType] = useState('');
+
   const [data, setData] = useState([
     {
-      id: '',
+      id: 0,
       name: '',
       type: '',
     },
@@ -25,22 +28,44 @@ function App() {
     });
   };
 
+  const addData = () => {
+    Axios.post('http://localhost:3001/post', {
+      name: name,
+      type: type,
+    }).then(getData);
+  };
+
   return (
     <>
       <Container>
-        <Form action="">
+        <div className="col-6 mt-4">
+          <h3>Add</h3>
           <FormGroup>
             <label htmlFor="name">Name</label>
-            <FormControl type="text" name="name" id="name" />
+            <FormControl
+              type="text"
+              name="name"
+              id="name"
+              onChange={({ target }) => {
+                setName(target.value);
+              }}
+            />
           </FormGroup>
           <FormGroup>
             <label htmlFor="type">Type</label>
-            <FormControl type="text" name="type" id="type" />
+            <FormControl
+              type="text"
+              name="type"
+              id="type"
+              onChange={({ target }) => {
+                setType(target.value);
+              }}
+            />
           </FormGroup>
-          <Button variant="primary" type="submit" className="mt-2">
-            send
+          <Button variant="primary" className="mt-2" onClick={addData}>
+            Add item
           </Button>
-        </Form>
+        </div>
       </Container>
       <Container>
         <Button variant="primary" className="mt-5 mb-2" onClick={getData}>
