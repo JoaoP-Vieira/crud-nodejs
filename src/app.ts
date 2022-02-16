@@ -42,6 +42,24 @@ app.get('/get', (req, res) => {
   });
 });
 
+app.put('/update', (req, res) => {
+  const id = req.body.id;
+  const name = req.body.name;
+  const type = req.body.type;
+
+  db.query(
+    'UPDATE products SET name = ? WHERE type = ? WHERE id = ?',
+    [name, type, id],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
+    },
+  );
+});
+
 app.delete('/delete/:id', (req, res) => {
   const id = req.params.id;
 
