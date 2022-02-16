@@ -1,13 +1,9 @@
 import { useState } from 'react';
 import Axios from 'axios';
+
+import './app.css';
 import 'bootstrap/dist/css/bootstrap.css';
-import {
-  Container,
-  FormGroup,
-  FormControl,
-  Button,
-  Table,
-} from 'react-bootstrap';
+import { FormGroup, FormControl, Button, Table } from 'react-bootstrap';
 
 function App() {
   const [id, setId] = useState('');
@@ -35,65 +31,109 @@ function App() {
     }).then(getData);
   };
 
+  const updateData = () => {
+    Axios.put('http://localhost:3001/update', {
+      name: name,
+      type: type,
+      id: Number(id),
+    }).then(getData);
+  };
+
   return (
     <>
-      <Container>
-        <div className="col-6 mt-4">
-          <h3>Add</h3>
-          <FormGroup>
-            <label htmlFor="name">Name</label>
-            <FormControl
-              type="text"
-              name="name"
-              id="name"
-              onChange={({ target }) => {
-                setName(target.value);
-              }}
-            />
-          </FormGroup>
-          <FormGroup>
-            <label htmlFor="type">Type</label>
-            <FormControl
-              type="text"
-              name="type"
-              id="type"
-              onChange={({ target }) => {
-                setType(target.value);
-              }}
-            />
-          </FormGroup>
-          <Button variant="primary" className="mt-2" onClick={addData}>
+      <div className="container-fluid">
+        <div className="mt-2">
+          <Table>
+            <thead style={{ display: 'block' }}>
+              <tr
+                style={{
+                  display: 'block',
+                  width: '100%',
+                }}
+              >
+                <th scope="col" id="id">
+                  id
+                </th>
+                <th scope="col" id="name">
+                  Name
+                </th>
+                <th scope="col" id="type">
+                  Type
+                </th>
+              </tr>
+            </thead>
+            <tbody className="table-body">
+              {data.map((data, key) => {
+                return (
+                  <tr
+                    key={key}
+                    style={{
+                      display: 'block',
+                      width: '100%',
+                    }}
+                  >
+                    <th scope="row" id="id">
+                      {data.id}
+                    </th>
+                    <td id="name">{data.name}</td>
+                    <td id="type">{data.type}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </Table>
+        </div>
+        <div className="mt-4 controls">
+          <label htmlFor="id">Id</label>
+          <FormControl
+            type="text"
+            name="id"
+            id="id"
+            style={{
+              width: '100px',
+            }}
+            onChange={({ target }) => {
+              setId(target.value);
+            }}
+          />
+
+          <label htmlFor="name">Name</label>
+          <FormControl
+            type="text"
+            name="name"
+            id="name"
+            style={{
+              width: '250px',
+            }}
+            onChange={({ target }) => {
+              setName(target.value);
+            }}
+          />
+
+          <label htmlFor="type">Type</label>
+          <FormControl
+            type="text"
+            name="type"
+            id="type"
+            style={{
+              width: '250px',
+            }}
+            onChange={({ target }) => {
+              setType(target.value);
+            }}
+          />
+
+          <Button variant="primary" onClick={addData}>
             Add item
           </Button>
+          <Button variant="primary" onClick={getData}>
+            Get data
+          </Button>
+          <Button variant="primary" onClick={updateData}>
+            Update
+          </Button>
         </div>
-      </Container>
-      <Container>
-        <Button variant="primary" className="mt-5 mb-2" onClick={getData}>
-          Get data
-        </Button>
-      </Container>
-      <Container>
-        <Table>
-          <thead>
-            <tr>
-              <th scope="col">id</th>
-              <th scope="col">Name</th>
-              <th scope="col">Type</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.map((data, key) => {
-              return (
-                <tr key={key}>
-                  <th scope="row">{data.id}</th>
-                  <td>{data.name}</td>
-                  <td>{data.type}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </Table>
-      </Container>
+      </div>
     </>
   );
 }

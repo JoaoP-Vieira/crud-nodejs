@@ -1,0 +1,39 @@
+#id {
+  display: inline-block;
+  width: 10%;
+}
+
+#name {
+  display: inline-block;
+  width: 45%;
+}
+
+#type {
+  display: inline-block;
+  width: 45%;
+}
+
+.table-body {
+  display: block;
+  height: calc(100vh - 150px);
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.table-body::-webkit-scrollbar {
+  display: none;
+}
+
+.controls {
+  padding: 1rem;
+}
+
+.controls label {
+  margin-left: 2em;
+  margin-right: 1em;
+}
+
+.controls button {
+  margin-left: 1em;
+}

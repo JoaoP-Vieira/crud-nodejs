@@ -48,7 +48,7 @@ app.put('/update', (req, res) => {
   const type = req.body.type;
 
   db.query(
-    'UPDATE products SET name = ? WHERE type = ? WHERE id = ?',
+    'UPDATE products SET name = ?, type = ? WHERE id = ?',
     [name, type, id],
     (err, result) => {
       if (err) {
