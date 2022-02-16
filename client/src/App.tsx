@@ -39,6 +39,10 @@ function App() {
     }).then(getData);
   };
 
+  const deleteData = (id: number) => {
+    Axios.delete(`http://localhost:3001/delete/${id}`).then(getData);
+  };
+
   return (
     <>
       <div className="container-fluid">
@@ -69,6 +73,7 @@ function App() {
                     key={key}
                     style={{
                       display: 'block',
+                      position: 'relative',
                       width: '100%',
                     }}
                   >
@@ -77,6 +82,18 @@ function App() {
                     </th>
                     <td id="name">{data.name}</td>
                     <td id="type">{data.type}</td>
+                    <button
+                      onClick={() => deleteData(data.id)}
+                      style={{
+                        position: 'absolute',
+                        right: '0px',
+                        width: '41px',
+                        height: '41px',
+                        border: 'none',
+                      }}
+                    >
+                      X
+                    </button>
                   </tr>
                 );
               })}
