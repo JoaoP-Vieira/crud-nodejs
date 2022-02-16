@@ -15,6 +15,23 @@ const db = mysql.createConnection({
 app.use(cors());
 app.use(express.json());
 
+app.post('/post', (req, res) => {
+  const name = req.body.name;
+  const type = req.body.type;
+
+  db.query(
+    'INSERT INTO products (name, type) VALUES (?,?)',
+    [name, type],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send('done');
+      }
+    },
+  );
+});
+
 app.get('/get', (req, res) => {
   db.query('SELECT * FROM products', (err, result) => {
     if (err) {
