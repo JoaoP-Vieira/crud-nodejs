@@ -28,7 +28,16 @@ function App() {
     Axios.post('http://localhost:3001/post', {
       name: name,
       type: type,
-    }).then(getData);
+    }).then(() => {
+      setData([
+        ...data,
+        {
+          id: data[data.length - 1].id + 1,
+          name: name,
+          type: type,
+        },
+      ]);
+    });
   };
 
   const updateData = () => {
@@ -40,7 +49,13 @@ function App() {
   };
 
   const deleteData = (id: number) => {
-    Axios.delete(`http://localhost:3001/delete/${id}`).then(getData);
+    Axios.delete(`http://localhost:3001/delete/${id}`).then(() => {
+      setData(
+        data.filter((value) => {
+          return value.id != id;
+        }),
+      );
+    });
   };
 
   return (
