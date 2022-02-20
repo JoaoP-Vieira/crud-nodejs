@@ -22,11 +22,11 @@ app.post('/post', (req, res) => {
   db.query(
     'INSERT INTO products (name, type) VALUES (?,?)',
     [name, type],
-    (err, result) => {
+    (err) => {
       if (err) {
-        console.log(err);
+        return res.status(500).send(err);
       } else {
-        res.send('done');
+        return res.status(200).send('Row added successfully');
       }
     },
   );
@@ -35,9 +35,9 @@ app.post('/post', (req, res) => {
 app.get('/get', (req, res) => {
   db.query('SELECT * FROM products', (err, result) => {
     if (err) {
-      console.log(err);
+      return res.status(500).send(err);
     } else {
-      res.send(result);
+      return res.status(200).send(result);
     }
   });
 });
@@ -50,11 +50,11 @@ app.put('/update', (req, res) => {
   db.query(
     'UPDATE products SET name = ?, type = ? WHERE id = ?',
     [name, type, id],
-    (err, result) => {
+    (err) => {
       if (err) {
-        console.log(err);
+        return res.status(500).send(err);
       } else {
-        res.send(result);
+        return res.status(200).send('Row updated successfully');
       }
     },
   );
@@ -63,11 +63,11 @@ app.put('/update', (req, res) => {
 app.delete('/delete/:id', (req, res) => {
   const id = req.params.id;
 
-  db.query('DELETE FROM products WHERE id = ?', id, (err, result) => {
+  db.query('DELETE FROM products WHERE id = ?', id, (err) => {
     if (err) {
-      console.log(err);
+      return res.status(500).send(err);
     } else {
-      res.send(result);
+      return res.status(200).send('Row deleted successfully');
     }
   });
 });

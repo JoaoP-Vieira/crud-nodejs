@@ -3,12 +3,16 @@ import Axios from 'axios';
 
 import './app.css';
 import 'bootstrap/dist/css/bootstrap.css';
-import { FormGroup, FormControl, Button, Table } from 'react-bootstrap';
+import { FormControl, Button, Table } from 'react-bootstrap';
 
 function App() {
   const [id, setId] = useState('');
   const [name, setName] = useState('');
   const [type, setType] = useState('');
+
+  const [idValue, setIdValue] = useState('');
+  const [nameValue, setNameValue] = useState('');
+  const [typeValue, setTypeValue] = useState('');
 
   const [data, setData] = useState([
     {
@@ -52,7 +56,7 @@ function App() {
     Axios.delete(`http://localhost:3001/delete/${id}`).then(() => {
       setData(
         data.filter((value) => {
-          return value.id != id;
+          return value.id !== id;
         }),
       );
     });
@@ -98,6 +102,22 @@ function App() {
                     <td id="name">{data.name}</td>
                     <td id="type">{data.type}</td>
                     <button
+                      onClick={() => {
+                        setIdValue(`${data.id}`);
+                        setNameValue(data.name);
+                        setTypeValue(data.type);
+                      }}
+                      style={{
+                        position: 'absolute',
+                        right: '41px',
+                        width: '41px',
+                        height: '41px',
+                        border: 'none',
+                      }}
+                    >
+                      Edit
+                    </button>
+                    <button
                       onClick={() => deleteData(data.id)}
                       style={{
                         position: 'absolute',
@@ -120,6 +140,7 @@ function App() {
           <FormControl
             type="text"
             name="id"
+            value={idValue}
             id="id"
             style={{
               width: '100px',
@@ -133,6 +154,7 @@ function App() {
           <FormControl
             type="text"
             name="name"
+            value={nameValue}
             id="name"
             style={{
               width: '250px',
@@ -146,6 +168,7 @@ function App() {
           <FormControl
             type="text"
             name="type"
+            value={typeValue}
             id="type"
             style={{
               width: '250px',
